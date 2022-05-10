@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <?php
+    require_once("processa.php");
+    $vetor = conversaoArray();
+    echo count($vetor)."<br><br>";
+    var_dump($vetor);
+    
     $title = "Formulário de criação do quadrado";
 ?>
 <html lang="pt-br">
@@ -19,5 +24,22 @@
         <br>
         <button type="submit">Criar</button>
     </form>
+    <br>
+    <table border=1>
+        <tr>
+            <th>Lado</th>
+            <th>Cor</th>
+        </tr>
+        <?php
+            for($x = 0; $x < count($vetor); $x ++){
+        ?>
+        <tr>
+            <td><?php echo $vetor[$x]; ?></td>
+            <td><?php echo $vetor[$x]; ?></td>
+        </tr>
+        <?php
+            }
+        ?>
+    </table>
 </body>
 </html>
