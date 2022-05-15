@@ -1,12 +1,17 @@
 <?php
     class Quadrado{
+        private $id;
         private $lado;
         private $cor;
-        public function __construct($lado, $cor){
+        public function __construct($id, $lado, $cor){
+            $this->setId($id);
             $this->setLado($lado);
             $this->setCor($cor);
         }
 
+        public function setId($id){
+            $this->id = $id;
+        }
         public function setLado($lado){
             if($lado > 0)
                 $this->lado = $lado;
@@ -17,31 +22,40 @@
         }
 
         public function __toString(){
-            return "[Quadrado] <br>".
+            return "<a href='index.php'>Voltar à página principal</a> | [Quadrado] <br>".
+                    "<br>".
                     "Lado: ".$this->getLado()." <br>".
                     "Cor: ".$this->getCor()." <br>".
                     "Área: ".$this->calcularArea()." <br>".
                     "Perímetro: ".$this->calcularPerimetro()." <br>".
-                    "Diagonal: ".$this->calcularDiagonal()."<br>";
+                    "Diagonal: ".$this->calcularDiagonal()."<br>".
+                    "<br>";
         }
 
+        public function getId(){ return $this->id; }
         public function getLado(){ return $this->lado; }
         public function getCor(){ return $this->cor; }
 
         public function insere(){
             require_once("conf/Conexao.php");
-            $query = "INSERT INTO quadrado VALUES(:lado, :cor)";
+            $query = "INSERT INTO quadrado VALUES(:id, :lado, :cor)";
             $conexao = Conexao::getInstance();
             $stmt = $conexao->prepare($query);
+            $stmt->bindParam(":id", $this->id);
             $stmt->bindParam(":lado", $this->lado);
             $stmt->bindParam(":cor", $this->cor);
             return $stmt->execute();
         }
-        public function buscar(){
+        public function buscar($id){
             require_once("conf/Conexao.php");
             $query = "SELECT * FROM quadrado";
             $conexao = Conexao::getInstance();
             $stmt = $conexao->prepare($query);
+            if($id != 0){
+                $query .= " WHERE id = :id";
+                $stmt = $conexao->prepare($query);
+                $stmt->bindParam(":id", $id);
+            }
             if($stmt->execute())
                 return $stmt->fetchAll();
             return false;
