@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <?php
     require_once("processa.php");
-    $vetor = conversaoArray();
-    echo count($vetor)."<br><br>";
-    var_dump($vetor);
+    
+    $lista = lista();
     
     $title = "Formulário de criação do quadrado";
 ?>
@@ -27,17 +26,20 @@
     <br>
     <table border=1>
         <tr>
+            <th>ID</th>
             <th>Lado</th>
             <th>Cor</th>
         </tr>
         <?php
-            for($x = 0; $x < count($vetor); $x ++){
+            for($x = 0; $x < count($lista); $x ++){
+                echo "<tr>";
+                for($y = 0; $y < 3; $y ++){
         ?>
-        <tr>
-            <td><?php echo $vetor[$x]; ?></td>
-            <td><?php echo $vetor[$x]; ?></td>
-        </tr>
+            <td><?php echo $lista[$x][$y]; ?></td>
         <?php
+                }
+                echo "<td><a href='show.php?id={$lista[$x][0]}'>Visualizar quadrado</a></td>
+                </tr>";
             }
         ?>
     </table>
