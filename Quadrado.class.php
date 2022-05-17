@@ -15,10 +15,14 @@
         public function setLado($lado){
             if($lado > 0)
                 $this->lado = $lado;
+            else
+                throw new Exception("Valor do lado inválido: $lado");
         }
         public function setCor($cor){
             if(strlen($cor) > 0)
                 $this->cor = $cor;
+            else
+                throw new Exception("Cor inválida: $cor");
         }
 
         public function __toString(){
@@ -59,6 +63,26 @@
             if($stmt->execute())
                 return $stmt->fetchAll();
             return false;
+        }
+        public function editar(){
+            require_once("conf/Conexao.php");
+            $query = "UPDATE quadrado
+                    SET lado = :lado, cor = :cor
+                    WHERE id = :id";
+            $conexao = Conexao::getInstance();
+            $stmt = $conexao->prepare($query);
+            $stmt->bindParam(":lado", $this->lado);
+            $stmt->bindParam(":cor", $this->cor);
+            $stmt->bindParam(":id", $this->id);
+            return $stmt->execute();
+        }
+        public function excluir(){
+            require_once("conf/Conexao.php");
+            $query = "DELETE FROM quadrado WHERE id = :id";
+            $conexao = Conexao::getInstance();
+            $stmt = $conexao->prepare($query);
+            $stmt->bindParam(":id", $this->id);
+            return $stmt->execute();
         }
 
         public function calcularArea(){

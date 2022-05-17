@@ -1,7 +1,8 @@
 <?php
     require_once("processa.php");
 
-    $lista = lista();
+    $id = isset($_GET["id"]) ? $_GET["id"] : 0;
+    $lista = lista($id);
 
     $quad = new Quadrado($lista[0], $lista[1], $lista[2]);
     echo $quad.
