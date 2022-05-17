@@ -3,8 +3,8 @@
 
     $lista = lista();
 
-    echo "<a href='index.php'>Voltar à página principal</a> | [Quadrado {$lista[0]}] <br>".
-        "<br>".
+    $quad = new Quadrado($lista[0], $lista[1], $lista[2]);
+    echo $quad.
         "<div class='quadrado'></div>";
 ?>
 <style>

@@ -22,7 +22,7 @@
         }
 
         public function __toString(){
-            return "<a href='index.php'>Voltar à página principal</a> | [Quadrado] <br>".
+            return "<a href='index.php'>Voltar à página principal</a> | [Quadrado ".$this->getId()."] <br>".
                     "<br>".
                     "Lado: ".$this->getLado()." <br>".
                     "Cor: ".$this->getCor()." <br>".

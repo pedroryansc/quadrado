@@ -6,9 +6,7 @@
         $cor = isset($_POST["cor"]) ? $_POST["cor"] : "";
         $quad = new Quadrado(0, $lado, $cor);
         $quad->insere();
-        echo $quad.
-        "<div class='quadrado'>".
-        "</div>";
+        header("location:index.php");
     }
 
     function lista(){
@@ -22,10 +20,3 @@
             return $lista;
     }
 ?>
-<style>
-    .quadrado{
-        width: <?php echo $lado; ?>em;
-        height: <?php echo $lado; ?>em;
-        background: <?php echo $cor; ?>;
-    }
-</style>
