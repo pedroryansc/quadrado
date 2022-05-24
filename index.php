@@ -10,6 +10,9 @@
     $vetor = lista($id);
     
     $title = "Formulário de criação do quadrado";
+
+    $tipo = isset($_POST["tipo"]) ? $_POST["tipo"] : 0;
+    $info = isset($_POST["info"]) ? $_POST["info"] : "";
 ?>
 <html lang="pt-br">
 <head>
@@ -27,6 +30,17 @@
         Cor: <input type="color" name="cor" value="<?php if($acao == "editar") echo $vetor[2]; ?>"><br>
         <br>
         <button type="submit" name="acao" value="salvar">Criar</button>
+    </form>
+    <br><br>
+    <form method="post">
+        Pesquisar por: <br>
+        <input type="radio" name="tipo" value="1" <?php if($tipo == 1) echo "checked"; ?>> ID<br>
+        <input type="radio" name="tipo" value="2" <?php if($tipo == 2) echo "checked"; ?>> Lado<br>
+        <input type="radio" name="tipo" value="3" <?php if($tipo == 3) echo "checked"; ?>> Cor<br>
+        <br>
+        <input type="search" name="info" placeholder="Pesquisa" value="<?php echo $info; ?>"><br>
+        <br>
+        <button type="submit">Pesquisar</button>
     </form>
     <br>
     <table border=1>
