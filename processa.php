@@ -42,21 +42,19 @@
         header("location:index.php");
     }
 
-    function lista($id){
+    function lista($tipo, $info){
         $quad = new Quadrado(1, 1, 1);
-        $lista = $quad->buscar($id);
-        if($id != 0){
+        $lista = $quad->listar($tipo, $info);
+        if($lista == array(1)){
             foreach($lista as $vetor)
                 return $vetor;
         } else
             return $lista;
     }
 
-    function listaCor(){
+    function linha($tipo, $info){
         $quad = new Quadrado(1, 1, 1);
-        $lista = $quad->listar();
-        foreach($lista as $linha){
-            echo $linha["cor"];
-        }
+        $lista = $quad->listar($tipo, $info);
+        return $lista;
     }
 ?>

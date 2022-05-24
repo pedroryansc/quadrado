@@ -5,14 +5,16 @@
     $acao = isset($_GET["acao"]) ? $_GET["acao"] : "";
     $id = isset($_GET["id"]) ? $_GET["id"] : 0;
 
-    $lista = lista(0);
-
-    $vetor = lista($id);
-    
-    $title = "Formulário de criação do quadrado";
-
     $tipo = isset($_POST["tipo"]) ? $_POST["tipo"] : 0;
     $info = isset($_POST["info"]) ? $_POST["info"] : "";
+
+    $lista = lista($tipo, $info);
+    // Com o método "listar" ao invés do "buscar", $vetor não funciona.
+    $vetor = lista($tipo, $info);
+    
+    $title = "Formulário de criação do quadrado";
+    //echo count($lista);
+    //var_dump($lista);
 ?>
 <html lang="pt-br">
 <head>
@@ -58,9 +60,9 @@
         <?php
                 }
         ?>
-            <td><a href="show.php?id=<?php echo $lista[$x][0]; ?>">Visualizar quadrado</a></td>
-            <td><a href="index.php?acao=editar&id=<?php echo $lista[$x][0]; ?>">Editar</a></td>
-            <td><a href="javascript:excluirRegistro('processa.php?acao=excluir&id=<?php echo $lista[$x][0]; ?>')">Excluir</a></td>
+            <td><a href="show.php?id=<?php echo $lista[$x]["id"]; ?>">Visualizar quadrado</a></td>
+            <td><a href="index.php?acao=editar&id=<?php echo $lista[$x]["id"]; ?>">Editar</a></td>
+            <td><a href="javascript:excluirRegistro('processa.php?acao=excluir&id=<?php echo $lista[$x]["id"]; ?>')">Excluir</a></td>
         </tr>
         <?php
             }
