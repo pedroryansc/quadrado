@@ -1,4 +1,10 @@
 <?php
+    require_once("conf/Conexao.php"); /* Caso "Quadrado.class.php" estivesse dentro de
+                                        uma pasta, o diretório permaneceria o mesmo,
+                                        pois o uso deste arquivo seria feito através do
+                                        "index.php", o qual não está dentro de uma pasta.
+                                        */
+
     class Quadrado{
         private $id;
         private $lado;
@@ -50,6 +56,55 @@
             $stmt->bindParam(":cor", $this->cor);
             return $stmt->execute();
         }
+
+        // Insere um quadrado no banco de dados
+        public function insere2(){
+            // Abrir conexão com o banco
+            $conexao = Conexao::getInstance();
+            // Montar SQL - Comando para inserir os dados
+            $sql = "INSERT INTO quadrado (lado, cor) VALUES(:l, :c)";
+            // Preparar o comando
+            $comando = $conexao->prepare($sql);
+            // Vincular os parâmetros
+            $comando->bindParam(":l", $this->getLado(), PDO::PARAM_INT);
+            $comando->bindParam(":c", $this->getCor(), PDO::PARAM_STR);
+            // Executar e retornar o resultado
+            if($comando->execute())
+                return $conexao->lastInsertId();
+            else{
+                return 0;
+                $comando->debugDumpParams();
+            }
+        }
+        
+        // Listagem - Relatório (Todos os dados)
+
+        public function listar($tipo, $info){ /*$tipo = Tipo de pesquisa
+                                                        $info = Texto da pesquisa*/
+            // Abrir conexão com o banco
+            $conexao = Conexao::getInstance();
+            // Montar SQL (Comando para inserir os dados)
+            $sql = "SELECT * FROM quadrado";
+            //Adicionar parâmetros
+            if($tipo > 0)
+                switch($tipo){
+                    case(1): $sql .= " WHERE id = :info"; break;
+                    case(2): $sql .= " WHERE lado = :info"; break;
+                    case(3): $sql .= " WHERE cor LIKE ':info%'"; break;
+                }
+            // Preparar o comando
+            $comando = $conexao->prepare($sql);
+            // Vincular os parâmetros
+            $comando->bindParam(':info', $info, PDO::PARAM_STR);
+            // Executar e retornar o resultado
+            $comando->execute();
+            return $comando->fetchAll();
+        }
+
+        // Consulta (ID) - buscaDados (Única linha de dados)
+
+
+        
         public function buscar($id){
             require_once("conf/Conexao.php");
             $query = "SELECT * FROM quadrado";
@@ -86,13 +141,13 @@
         }
 
         public function calcularArea(){
-            return $this->lado * $this->lado;
+            return pow($this->getLado(), 2);
         }
         public function calcularPerimetro(){
-            return $this->lado * 4;
+            return $this->getLado() * 4;
         }
         public function calcularDiagonal(){
-            return number_format($this->lado * sqrt(2), 3, ",", ".");
+            return number_format($this->getLado() * sqrt(2), 3, ",", ".");
         }
     }
 ?>

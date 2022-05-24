@@ -24,7 +24,7 @@
         $quad = new Quadrado($id, $lado, $cor);
         if($id == 0){
             try{
-                $quad->insere();
+                $quad->insere2();
             } catch(Exception $e){
                 echo "Erro ao criar quadrado <br>".
                     "<br>".
@@ -50,5 +50,13 @@
                 return $vetor;
         } else
             return $lista;
+    }
+
+    function listaCor(){
+        $quad = new Quadrado(1, 1, 1);
+        $lista = $quad->listar();
+        foreach($lista as $linha){
+            echo $linha["cor"];
+        }
     }
 ?>
