@@ -86,12 +86,13 @@
             // Montar SQL (Comando para inserir os dados)
             $sql = "SELECT * FROM quadrado";
             //Adicionar parâmetros
-            if($tipo > 0)
+            if($tipo > 0){
                 switch($tipo){
                     case(1): $sql .= " WHERE id = :info"; break;
                     case(2): $sql .= " WHERE lado LIKE :info"; $info .= "%"; break;
                     case(3): $sql .= " WHERE cor LIKE :info"; $info = "%".$info."%"; break;
                 }
+            }
             // Preparar o comando
             $comando = $conexao->prepare($sql);
             // Vincular os parâmetros

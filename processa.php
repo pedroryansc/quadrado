@@ -47,10 +47,4 @@
         $lista = $quad->listar($tipo, $info);
         return $lista;
     }
-
-    function linha($tipo, $info){
-        $quad = new Quadrado(1, 1, 1);
-        $lista = $quad->listar($tipo, $info);
-        return $lista;
-    }
 ?>

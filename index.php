@@ -9,7 +9,6 @@
     $info = isset($_POST["info"]) ? $_POST["info"] : "";
 
     $lista = lista($tipo, $info);
-    // Com o método "listar" ao invés do "buscar", $vetor não funciona.
     $vetor = lista(1, $id);
     //var_dump($vetor);
 
@@ -25,9 +24,9 @@
     <title><?php echo $title; ?></title>
 </head>
 <body>
+    <?php echo $title; ?> <br>
+    <br>
     <form action="processa.php?id=<?php echo $id; ?>" method="post">
-        <?php echo $title; ?> <br>
-        <br>
         Lado: <input type="text" name="lado" value="<?php if($acao == "editar") echo $vetor[0][1]; ?>"><br>
         <br>
         Cor: <input type="color" name="cor" value="<?php if($acao == "editar") echo $vetor[0][2]; ?>"><br>
