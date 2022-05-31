@@ -45,11 +45,7 @@
     function lista($tipo, $info){
         $quad = new Quadrado(1, 1, 1);
         $lista = $quad->listar($tipo, $info);
-        if($lista == array(1)){
-            foreach($lista as $vetor)
-                return $vetor;
-        } else
-            return $lista;
+        return $lista;
     }
 
     function linha($tipo, $info){

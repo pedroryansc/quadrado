@@ -10,8 +10,9 @@
 
     $lista = lista($tipo, $info);
     // Com o método "listar" ao invés do "buscar", $vetor não funciona.
-    $vetor = lista($tipo, $info);
-    
+    $vetor = lista(1, $id);
+    //var_dump($vetor);
+
     $title = "Formulário de criação do quadrado";
     //echo count($lista);
     //var_dump($lista);
@@ -27,9 +28,9 @@
     <form action="processa.php?id=<?php echo $id; ?>" method="post">
         <?php echo $title; ?> <br>
         <br>
-        Lado: <input type="text" name="lado" value="<?php if($acao == "editar") echo $vetor[1]; ?>"><br>
+        Lado: <input type="text" name="lado" value="<?php if($acao == "editar") echo $vetor[0][1]; ?>"><br>
         <br>
-        Cor: <input type="color" name="cor" value="<?php if($acao == "editar") echo $vetor[2]; ?>"><br>
+        Cor: <input type="color" name="cor" value="<?php if($acao == "editar") echo $vetor[0][2]; ?>"><br>
         <br>
         <button type="submit" name="acao" value="salvar">Criar</button>
     </form>
@@ -54,6 +55,12 @@
         <?php
             for($x = 0; $x < count($lista); $x ++){
                 echo "<tr>";
+        /*
+        ?>
+            <td><a href="show.php?id=<?php echo $lista[$x][0]; ?>"><?php echo $lista[$x][0]; ?></a></td>
+        <?php
+                for($y = 1; $y < 3; $y ++){
+        */
                 for($y = 0; $y < 3; $y ++){
         ?>
             <td><?php echo $lista[$x][$y]; ?></td>
