@@ -89,14 +89,14 @@
             if($tipo > 0)
                 switch($tipo){
                     case(1): $sql .= " WHERE id = :info"; break;
-                    case(2): $sql .= " WHERE lado LIKE :info"; break;
-                    case(3): $sql .= " WHERE cor LIKE :info"; break;
+                    case(2): $sql .= " WHERE lado LIKE :info"; $info .= "%"; break;
+                    case(3): $sql .= " WHERE cor LIKE :info"; $info = "%".$info."%"; break;
                 }
             // Preparar o comando
             $comando = $conexao->prepare($sql);
             // Vincular os parâmetros
             if($tipo > 0)
-                $comando->bindValue(":info", $info."%", PDO::PARAM_STR);
+                $comando->bindValue(":info", $info, PDO::PARAM_STR);
             // Executar e retornar o resultado
             $comando->execute();
             return $comando->fetchAll();
